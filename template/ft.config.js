@@ -1,67 +1,32 @@
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+'use strict';
 
-exports.servers = { // 配置同步到哪台机器
-  dev1: {
-    host: '10.8.12.12',
-    domain: '//abc.github.com',
-    port: 121,
-    local: './', // 默认当前目录
-    path: '/usr/local/multi', //服务器端要存放的地址
-    sudo: false
-  },
+var path = require('path');
+var merge = require('webpack-merge');
+var webpackJsConfig = require('./build/webpack.jsConf');
+var webpackCssConfig = require('./build/wepack.cssConf');
+
+function resolve (dir) {
+  return path.join(__dirname, dir)
 }
 
-exports.config = function() {
+exports.servers = require('./build/servers.conf');
+
+exports.config = function () {
   return {
-    webpackConfig: function(jsConfig, cssConfig, options, context) {
+    webpackConfig: function webpackConfig (jsConfig, cssConfig, options, node_env) {
       jsConfig.resolve.alias = {
-        "base": "./src/scripts/base",
-      }
-      cssConfig.module.rules = cssConfig.module.rules.concat([{
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
-      }, {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'less-loader']
-        })
-      }, {
-        test: /\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
-        })
-      }, {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10000
-            }
-          }
-        ]
-      }]);
-      jsConfig.module.rules = jsConfig.module.rules.concat([{
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }, {
-        test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'less-loader']
-      }, {
-        test: /\.(scss|sass)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
-      }]);
-      jsConfig.plugins.push(new ExtractTextPlugin(jsConfig.output.filename.replace('[ext]', '.css')))
-      cssConfig.plugins.push(new ExtractTextPlugin(cssConfig.output.filename.replace('[ext]', '.css')))
-      return {jsConfig: jsConfig, cssConfig: cssConfig};
+        '@': resolve('src')
+      };
+      jsConfig = merge(jsConfig, webpackJsConfig(jsConfig));
+      cssConfig = merge(cssConfig, webpackCssConfig(cssConfig));
+
+      return {
+        jsConfig: jsConfig,
+        cssConfig: cssConfig
+      };
     },
-    exports: [ // 要编译压缩的文件
-      "styles/base.less"
+    exports: [
+      'main.js'
     ]
-  }
+  };
 };

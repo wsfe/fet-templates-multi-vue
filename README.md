@@ -1,2 +1,3 @@
-# fet-templates-multi-vue
-fet init的多页面应用模板
+# fet-templates-multi
+
+>fet init的多页面应用模板

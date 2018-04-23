@@ -1,0 +1,6 @@
+/build/
+/prd/
+/dev/
+/ver/
+/*.js
+/*.json

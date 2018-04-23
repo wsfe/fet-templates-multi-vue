@@ -11,6 +11,10 @@ module.exports = {
       message: 'Project description',
       default: 'A Multi Page Application',
     },
+    author: {
+      type: 'string',
+      message: 'Author',
+    },
     autoInstall: {
       type: 'list',
       message: 'Should we run `npm install` for you after the project has been created? (recommended)',
@@ -29,19 +33,8 @@ module.exports = {
           name: 'No, I will handle that myself',
           value: false,
           short: 'no',
-        },
-      ],
-    },
-  },
-  filters: {
-    '.eslintrc.js': 'lint',
-    '.eslintignore': 'lint',
-    'config/test.env.js': 'unit',
-    'build/webpack.test.conf.js': "unit",
-    'test/unit/**/*': 'unit',
-    'test/unit/index.js': "unit",
-    'test/unit/karma.conf.js': "unit",
-    'test/unit/specs/index.js': "unit",
-    'src/router/**/*': 'router',
-  },
+        }
+      ]
+    }
+  }
 }
