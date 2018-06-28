@@ -1,9 +1,4 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var path = require('path');
-
-function resolve (dir) {
-  return path.join(__dirname, '..', dir);
-}
 
 module.exports = function (config) {
   return {
