@@ -1,20 +1,20 @@
 module.exports = {
-  dev61: {
-    host: '10.8.203.61',
+  dev1: {
+    host: '1.1.1.1',
     domain: '//dev1.img.wangsu.com',
     port: 63501,
     local: './', // 默认当前目录
     path: '/usr/local/nginx/{{ name }}',
     sudo: false,
-    exclude: ["node_modules", "build", ".gitignore", "README.md", "package.json", "ft.config.js", "ver", "refs", "src", "prd", ".cache", ".vscode", ".editorconfig"]
+    exclude: ["dev"]
   },
-  dev191: {
-    host: '10.8.203.191',
+  dev2: {
+    host: '1.1.1.2',
     domain: '//dev2.img.wangsu.com',
     port: 63501,
     local: './', // 默认当前目录
     path: '/usr/local/nginx/{{ name }}',
     sudo: false,
-    exclude: ["node_modules", "build", ".gitignore", "README.md", "package.json", "ft.config.js", "ver", "refs", "src", "prd", ".cache", ".vscode", ".editorconfig"]
+    exclude: ["dev"]
   }
 };

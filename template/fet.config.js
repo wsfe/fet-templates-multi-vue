@@ -26,7 +26,8 @@ exports.config = function () {
       };
     },
     exports: [
-      'main.js'
+      'styles/modules/pageA.scss',
+      'scripts/modules/pageA/index.js'
     ]
   };
 };

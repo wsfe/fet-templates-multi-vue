@@ -19,11 +19,24 @@ module.exports = function (config) {
         },
         {
           test: /\.js$/,
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: resolve('.cache/babel-loader')
-          },
-          include: [resolve('src')]
+          include: [resolve('src')],
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [[require.resolve('@babel/preset-env'),{
+                "modules": false,
+                "targets": {
+                  "browsers": [
+                    "> 1%",
+                    "last 2 versions",
+                    "not ie <= 8"
+                  ]
+                }
+              }]],
+              plugins: [require.resolve('@babel/plugin-transform-runtime')],
+              cacheDirectory: true
+            }
+          }
         }
       ]
     }
